@@ -4,7 +4,7 @@ services:
     image: syzoj/syzoj-ng:latest
     restart: always
     ports:
-      - "5000:80"
+      - 5000:80
     networks:
       - syzoj-ng-net
     volumes:
@@ -17,16 +17,22 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: syzoj
+    networks:
+      - syzoj-ng-net
   redis:
     image: redis
     restart: always
     volumes:
       - ./redis:/data
+    networks:
+      - syzoj-ng-net
   rabbitmq:
     image: rabbitmq
     restart: always
     environment:
       RABBITMQ_ERLANG_COOKIE: syzoj
+    networks:
+      - syzoj-ng-net
 networks:
   syzoj-ng-net:
     driver: bridge
