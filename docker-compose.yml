@@ -7,13 +7,11 @@ services:
       - "5000:80"
     networks:
       - syzoj-ng-net
-    configs:
-      - source: appsettings.json
-        target: /app/appsettings.json
+    volumes:
+      - ./appsettings.json:/app/appsettings.json
+      - ./data:/data
     environment:
       RABBITMQ_ERLANG_COOKIE: syzoj
-    volumes:
-      - data:/data
   postgres:
     image: postgres
     restart: always
@@ -23,7 +21,7 @@ services:
     image: redis
     restart: always
     volumes:
-      - redis:/data
+      - ./redis:/data
   rabbitmq:
     image: rabbitmq
     restart: always
